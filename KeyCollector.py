@@ -40,18 +40,21 @@ def updateCSV(key):
   """Updates CSV with new Values"""
   df.to_csv('./CSV/KeyData.csv', index=False)
 
+
 """ Either resets the CSV file to 0 or creates the file if it does not exists """
 def defaultCSV():
   letter = {"Letter":[]}
 
   file = './CSV/KeyData.csv'
   if(os.path.exists(file)):
+
     for char in string.ascii_lowercase:
       letter["Letter"].append(char)
 
     data = pd.DataFrame(letter)
     data['Presses'] = 0
     data.to_csv('./CSV/KeyData.csv', index=False)
+    
   else:
     data['Presses'] = 0
 
@@ -61,19 +64,42 @@ def addKeyToCSV(key):
   data = pd.read_csv('./CSV/KeyData.csv')
   pass
 
+def printCSV():
+  file = './CSV/KeyData.csv'
+  df = pd.read_csv(file)
+  print(df)
+
+
+def Menu():
+  while(True):
+    print("\nMenu")
+    print("1. Start the program to read your key inputs.")
+    print("2. End the program.")
+    print("3. Check how many presses on single character.")
+    print("4. Print all the data.")
+    print("5. Reset the CSV file to 0.")
+    print("9. Exit")
+    option = input("Please Enter a Number:")
+
+    match option:
+      case '1':
+        collectKey()
+      case '2':
+        print('ending has not been completed')
+      case '3':
+        char = input("Enter desired letter:")
+      case '4':
+        printCSV()
+      case '5':
+        defaultCSV()
+      case '9':
+        break
+      case _ :
+        print("Invalid Input.") 
+
 
 def main():
-  file = './CSV/KeyData.csv'
-  """ collectKey()
-  updateCSV('a') """
-  if(os.path.exists(file)):
-    print("file exists")
-    """ collectKey() """
-    """ updateCSV("a") """
-    pass
-  else:
-    defaultCSV()
-  defaultCSV()
+  Menu()
 
 
 if __name__ == "__main__":
