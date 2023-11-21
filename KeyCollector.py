@@ -40,6 +40,17 @@ def updateCSV(key):
   """Updates CSV with new Values"""
   df.to_csv('./CSV/KeyData.csv', index=False)
 
+def printColumn(char):
+  file = './CSV/KeyData.csv'
+  df = pd.read_csv(file)
+  col = df.columns
+  index_y = col.get_loc('Presses')
+  index = df.index[df['Letter'] == char].to_list() 
+  index.append(index_y)
+  
+  print(f'\nTotal presses for a: {df.iloc[index[0], index[1]]}')
+
+
 
 """ Either resets the CSV file to 0 or creates the file if it does not exists """
 def defaultCSV():
@@ -58,11 +69,6 @@ def defaultCSV():
   else:
     data['Presses'] = 0
 
-
-
-def addKeyToCSV(key):
-  data = pd.read_csv('./CSV/KeyData.csv')
-  pass
 
 def printCSV():
   file = './CSV/KeyData.csv'
@@ -88,6 +94,7 @@ def Menu():
         print('ending has not been completed')
       case '3':
         char = input("Enter desired letter:")
+        printColumn(char)
       case '4':
         printCSV()
       case '5':
